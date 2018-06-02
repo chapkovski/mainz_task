@@ -16,6 +16,7 @@ class Constants(BaseConstants):
     num_rounds = 4
     endowment = 100
     multiplier = 2
+    returning_max = 100  #(for percentage of amount received)
     treatments = ['T1', 'T2']
     decision_order = {'T1': ['sender', 'receiver'], 'T2': ['receiver', 'sender']}
     splitting_round = 3
@@ -46,9 +47,9 @@ class Group(BaseGroup):
     treatment = models.StringField()
     sender_decision = models.IntegerField(max=Constants.endowment,
                                           verbose_name='Make your decision as a sender')
-    sender_beliefs = models.IntegerField(max=Constants.endowment,
+    sender_beliefs = models.IntegerField(max=Constants.returning_max,
                                          verbose_name='How much (as %%) do you believe a Receiver sends you back?')
-    receiver_decision = models.IntegerField(max=Constants.endowment,
+    receiver_decision = models.IntegerField(max=Constants.returning_max,
                                             verbose_name='Make your decision as a Receiver (in %%)')
     receiver_beliefs = models.IntegerField(max=Constants.endowment,
                                            verbose_name='How much  do you believe you will get from the Sender?')
