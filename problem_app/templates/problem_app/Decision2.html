@@ -6,7 +6,9 @@
 {% endblock %}
 
 {% block content %}
-    {{ form }}
+    {% for f in form %}
+        {% formfield f %}
+    {% endfor %}
     {% next_button %}
-
+    {% include 'problem_app/footer.html' %}
 {% endblock %}

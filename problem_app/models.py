@@ -25,10 +25,14 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    trustor_decision = models.IntegerField(max=100)
-    trustor_beliefs = models.IntegerField(max=100)
-    trustee_decision = models.IntegerField(max=100)
-    trustee_beliefs = models.IntegerField(max=100)
+    trustor_decision = models.IntegerField(max=100,
+                                           verbose_name='Make your decision as a trustor')
+    trustor_beliefs = models.IntegerField(max=100,
+                                          verbose_name='How much (as %%) do you believe trustee send you back?')
+    trustee_decision = models.IntegerField(max=100,
+                                           verbose_name='Make your decision as a trustee')
+    trustee_beliefs = models.IntegerField(max=100,
+                                          verbose_name='How much  do you believe trustor send you?')
     political_views = models.IntegerField(choices=[(0, 'Left'),
                                                    (1, 'Right')],
                                           widget=widgets.RadioSelect)

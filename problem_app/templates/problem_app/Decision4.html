@@ -7,12 +7,14 @@
 
 {% block content %}
     <div class="alert alert-primary" role="alert">
-        {{decision_text}}
+        {{ decision_text }}
     </div>
     <div class="alert alert-secondary" role="alert">
-        {{belief_text}}
+        {{ belief_text }}
     </div>
-    {{ form }}
+    {% for f in form %}
+        {% formfield f %}
+    {% endfor %}
     {% next_button %}
-
+{% include 'problem_app/footer.html' %}
 {% endblock %}
