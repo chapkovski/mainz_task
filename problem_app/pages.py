@@ -88,9 +88,9 @@ class Decision3(Page):
         treatmentseq = self.session.config['treatment_seq']
         curtreatment = treatmentseq[self.round_number - 1]
         if curtreatment == 'T1':
-            return self.player.role() == 'B'
+            return self.player.role() == 'receiver'
         else:
-            return self.player.role() == 'A'
+            return self.player.role() == 'sender'
 
     def get_form_fields(self):
         treatmentseq = self.session.config['treatment_seq']
