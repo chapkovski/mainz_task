@@ -1,0 +1,12 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Decision 2. Round {{ player.round_number }} out of {{ Constants.num_rounds }}
+{% endblock %}
+
+{% block content %}
+    {{ form }}
+    {% next_button %}
+
+{% endblock %}

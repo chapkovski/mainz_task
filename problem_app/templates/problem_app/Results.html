@@ -1,0 +1,23 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Page title
+{% endblock %}
+
+{% block content %}
+
+BBB {% if a|default:None %}
+    <table class="table">
+    {% for i,j in a %}
+        <tr>
+<td>{{ j.contrib }}</td>        <td>{{ i }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endif %}
+
+{% next_button %}
+{% endblock %}
+
+
