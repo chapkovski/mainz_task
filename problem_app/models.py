@@ -52,6 +52,6 @@ class Player(BasePlayer):
 
     def role(self):
         if self.id_in_group == 1:
-            return 'A'
+            return 'sender'
         else:
-            return 'B'
+            return 'receiver'

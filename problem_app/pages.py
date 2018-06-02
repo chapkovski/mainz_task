@@ -5,12 +5,12 @@ from .models import Constants, Player
 
 class Results(Page):
     def is_displayed(self):
-        if self.player.role() == 'A':
-            trustee = self.group.get_player_by_role('B')
-            self.player.payoff = 100 - self.player.trustor_decision + trustee.trustee_decision / 100 * self.player.trustor_decision
+        if self.player.role() == 'sender':
+            receiver = self.group.get_player_by_role('receiver')
+            self.player.payoff = 100 - self.player.sender_decision + receiver.receiver_decision / 100 * self.player.sender_decision
         else:
-            trustor = self.group.get_player_by_role('A')
-            self.player.payoff = trustor.trustor_decision * 2 - self.player.trustee_decision / 100 * trustor.trustor_decision
+            sender = self.group.get_player_by_role('sender')
+            self.player.payoff = sender.sender_decision * 2 - self.player.receiver_decision / 100 * sender.sender_decision * 2
         return True
 
 
@@ -45,17 +45,17 @@ class Decision1(Page):
         treatmentseq = self.session.config['treatment_seq']
         curtreatment = treatmentseq[self.round_number - 1]
         if curtreatment == 'T1':
-            return self.player.role() == 'A'
+            return self.player.role() == 'sender'
         else:
-            return self.player.role() == 'B'
+            return self.player.role() == 'receiver'
 
     def get_form_fields(self):
         treatmentseq = self.session.config['treatment_seq']
         curtreatment = treatmentseq[self.round_number - 1]
         if curtreatment == 'T1':
-            return ['trustor_decision']
+            return ['sender_decision']
         else:
-            return ['trustee_decision']
+            return ['receiver_decision']
 
 
 class Decision2(Page):
@@ -65,17 +65,20 @@ class Decision2(Page):
         treatmentseq = self.session.config['treatment_seq']
         curtreatment = treatmentseq[self.round_number - 1]
         if curtreatment == 'T1':
-            return self.player.role() == 'A'
+            return self.player.role() == 'sender'
         else:
-            return self.player.role() == 'B'
+            return self.player.role() == 'receiver'
 
     def get_form_fields(self):
         treatmentseq = self.session.config['treatment_seq']
         curtreatment = treatmentseq[self.round_number - 1]
         if curtreatment == 'T1':
-            return ['trustor_beliefs']
+            return ['sender_beliefs']
         else:
-            return ['trustee_beliefs']
+            return ['receiver_beliefs']
+
+
+
 
 
 class Decision3(Page):
@@ -93,33 +96,9 @@ class Decision3(Page):
         treatmentseq = self.session.config['treatment_seq']
         curtreatment = treatmentseq[self.round_number - 1]
         if curtreatment == 'T1':
-            return ['trustee_decision']
+            return ['receiver_beliefs']
         else:
-            return ['trustor_decision']
-
-    def vars_for_template(self):
-        treatmentseq = self.session.config['treatment_seq']
-        curtreatment = treatmentseq[self.round_number - 1]
-        if curtreatment == 'T1':
-            trustor = self.group.get_player_by_role('A')
-            decision_text = 'The trustor decided to send  {} of his endowment'.format(
-                trustor.trustor_decision)
-            belief_text = 'The trustor believes you will send him back  {}% '.format(
-                trustor.trustor_beliefs)
-            return {
-                'decision_text': decision_text,
-                'belief_text': belief_text,
-            }
-        else:
-            trustee = self.group.get_player_by_role('B')
-            decision_text = 'The trustee decided to send back  {}% of what you will send to him/her'.format(
-                trustee.trustee_decision)
-            belief_text = 'The trustee believes you will send him/her {}'.format(
-                trustee.trustee_beliefs)
-            return {
-                'decision_text': decision_text,
-                'belief_text': belief_text,
-            }
+            return ['sender_beliefs']
 
 
 class Decision4(Page):
@@ -129,43 +108,41 @@ class Decision4(Page):
         treatmentseq = self.session.config['treatment_seq']
         curtreatment = treatmentseq[self.round_number - 1]
         if curtreatment == 'T1':
-            return self.player.role() == 'B'
+            return self.player.role() == 'receiver'
         else:
-            return self.player.role() == 'A'
+            return self.player.role() == 'sender'
 
     def get_form_fields(self):
         treatmentseq = self.session.config['treatment_seq']
         curtreatment = treatmentseq[self.round_number - 1]
         if curtreatment == 'T1':
-            return ['trustee_beliefs']
+            return ['receiver_decision']
         else:
-            return ['trustor_beliefs']
+            return ['sender_decision']
 
     def vars_for_template(self):
         treatmentseq = self.session.config['treatment_seq']
         curtreatment = treatmentseq[self.round_number - 1]
         if curtreatment == 'T1':
-            trustor = self.group.get_player_by_role('A')
-            decision_text = 'The trustor decided to send  {} of his endowment'.format(
-                trustor.trustor_decision)
-            belief_text = 'The trustor believes you will send him back  {}% '.format(
-                trustor.trustor_beliefs)
+            sender = self.group.get_player_by_role('sender')
+            decision_text = 'The sender decided to send  {} of his endowment'.format(
+                sender.sender_decision)
+            belief_text = 'The sender believes you will send him back  {}% '.format(
+                sender.sender_beliefs)
             return {
                 'decision_text': decision_text,
                 'belief_text': belief_text,
             }
         else:
-            trustee = self.group.get_player_by_role('B')
-            decision_text = 'The trustee decided to send back  {}% of what you will send to him/her'.format(
-                trustee.trustee_decision)
-            belief_text = 'The trustee believes you will send him/her {}'.format(
-                trustee.trustee_beliefs)
+            receiver= self.group.get_player_by_role('B')
+            decision_text = 'The receiver decided to send back  {}% of what you will send to him/her'.format(
+                receiver.receiver_decision)
+            belief_text = 'The receiver believes you will send him/her {}'.format(
+                receiver.receiver_beliefs)
             return {
                 'decision_text': decision_text,
                 'belief_text': belief_text,
             }
-
-
 class Survey1(Page):
     form_model = 'player'
 
