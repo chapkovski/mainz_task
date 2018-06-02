@@ -1,14 +1,13 @@
-{% extends "global/Page.html" %}
+{% extends "global/PageExt.html" %}
 {% load otree static %}
 
 {% block title %}
     Decision 1. Round {{ player.round_number }} out of {{ Constants.num_rounds }}
 {% endblock %}
 
-{% block content %}
+{% block inner_content %}
     {% for f in form %}
         {% formfield f %}
     {% endfor %}
-    {% next_button %}
-{% include 'problem_app/footer.html' %}
+
 {% endblock %}

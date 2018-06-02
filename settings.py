@@ -13,18 +13,18 @@ SESSION_CONFIG_DEFAULTS = {
 
 SESSION_CONFIGS = [
     {
-        'name': 'problem_app',
-        'display_name': "app to clean up; T2 - T1",
+        'name': 'solution_app',
+        'display_name': "Solution ; T2 - T1",
         'num_demo_participants': 2,
-        'app_sequence': ['problem_app'],
-        'treatment_seq': ['T1', 'T1', 'T2', 'T2']
+        'app_sequence': ['solution_app'],
+        'treatment_seq': ['T1','T2']
     },
     {
-        'name': 'problem_app2',
-        'display_name': "app to clean up; T1 - T2",
+        'name': 'solution_app2',
+        'display_name': "Solution; T1 - T2",
         'num_demo_participants': 2,
-        'app_sequence': ['problem_app'],
-        'treatment_seq': ['T2', 'T2', 'T1', 'T1', ]
+        'app_sequence': ['solution_app'],
+        'treatment_seq': ['T2','T1']
     },
 ]
 

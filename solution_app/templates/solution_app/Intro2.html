@@ -1,12 +1,11 @@
-{% extends "global/Page.html" %}
+{% extends "global/PageExt.html" %}
 {% load otree static %}
 
 {% block title %}
     Intro 2
 {% endblock %}
 
-{% block content %}
+{% block inner_content %}
     <div>Something here - intro </div>
-    {% next_button %}
-{% include 'problem_app/footer.html' %}
+
 {% endblock %}

@@ -1,0 +1,17 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block global_styles %}
+{% endblock %}
+
+{% block global_scripts %}
+{% endblock %}
+
+{% block content %}
+    {% block inner_content %}
+    {% endblock %}
+    <div class="my-3">
+        {% next_button %}
+    </div>
+    {% include 'global/footer.html' %}
+{% endblock %}
