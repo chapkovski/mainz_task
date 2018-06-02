@@ -4,7 +4,14 @@ from .models import Constants, Player
 
 
 class Results(Page):
-    ...
+    def is_displayed(self):
+        if self.player.role() == 'A':
+            trustee = self.group.get_player_by_role('B')
+            self.player.payoff = 100 - self.player.trustor_decision + trustee.trustee_decision / 100 * self.player.trustor_decision
+        else:
+            trustor = self.group.get_player_by_role('A')
+            self.player.payoff = trustor.trustor_decision * 2 - self.player.trustee_decision / 100 * trustor.trustor_decision
+        return True
 
 
 class Intro1(Page):
@@ -133,6 +140,7 @@ class Decision4(Page):
             return ['trustee_beliefs']
         else:
             return ['trustor_beliefs']
+
     def vars_for_template(self):
         treatmentseq = self.session.config['treatment_seq']
         curtreatment = treatmentseq[self.round_number - 1]
@@ -157,15 +165,16 @@ class Decision4(Page):
                 'belief_text': belief_text,
             }
 
+
 class Survey1(Page):
     form_model = 'player'
 
     def is_displayed(self):
-        return self.round_number == 3
+        return self.round_number == Constants.num_rounds
 
     def get_form_fields(self):
         a = ['political_views', 'trust']
-        b = ['experimenter_demand', 'belief']
+        b = ['experimenter_demand', 'gender']
         import random
         rand = random.random()
         if rand < .5:
@@ -180,11 +189,11 @@ class Survey2(Page):
     form_model = 'player'
 
     def is_displayed(self):
-        return self.round_number == 3
+        return self.round_number == Constants.num_rounds
 
     def get_form_fields(self):
         a = ['political_views', 'trust']
-        b = ['experimenter_demand', 'belief']
+        b = ['experimenter_demand', 'gender']
         import random
         if self.player.trust is None:
             random.shuffle(a)
@@ -195,17 +204,17 @@ class Survey2(Page):
 
 
 page_sequence = [
-    # Intro1,
-    # Intro2,
-    # ControlQuestions1,
-    # ControlQuestions2,
+    Intro1,
+    Intro2,
+    ControlQuestions1,
+    ControlQuestions2,
     Decision1,
     Decision2,
     WaitPage,
     Decision3,
     Decision4,
     WaitPage,
-    # Results,
-    # Survey1,
-    # Survey2
+    Results,
+    Survey1,
+    Survey2
 ]

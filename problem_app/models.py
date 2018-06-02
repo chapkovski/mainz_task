@@ -24,16 +24,26 @@ class Group(BaseGroup):
     pass
 
 
-
 class Player(BasePlayer):
-    trustor_decision = models.IntegerField()
-    trustor_beliefs = models.IntegerField()
-    trustee_decision = models.IntegerField()
-    trustee_beliefs = models.IntegerField()
-    political_views = models.IntegerField()
-    trust = models.IntegerField()
-    experimenter_demand = models.StringField()
-    belief = models.IntegerField()
+    trustor_decision = models.IntegerField(max=100)
+    trustor_beliefs = models.IntegerField(max=100)
+    trustee_decision = models.IntegerField(max=100)
+    trustee_beliefs = models.IntegerField(max=100)
+    political_views = models.IntegerField(choices=[(0, 'Left'),
+                                                   (1, 'Right')],
+                                          widget=widgets.RadioSelect)
+    trust = models.IntegerField(choices=[
+        (0, 'You can trust most people.'),
+        (1, 'You can never be too careful with others.'),
+    ],
+        widget=widgets.RadioSelect
+    )
+    experimenter_demand = models.LongStringField(verbose_name='What do you think this experiment was about?')
+    gender = models.IntegerField(
+        choices=[(0, 'Female'),
+                 (1, 'Male')],
+        verbose_name='What is your gender?',
+        widget=widgets.RadioSelect)
 
     def role(self):
         if self.id_in_group == 1:

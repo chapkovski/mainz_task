@@ -2,22 +2,17 @@
 {% load otree static %}
 
 {% block title %}
-    Page title
+    Results. Round {{ player.round_number }} out of {{ Constants.num_rounds }}
 {% endblock %}
 
 {% block content %}
 
-BBB {% if a|default:None %}
-    <table class="table">
-    {% for i,j in a %}
-        <tr>
-<td>{{ j.contrib }}</td>        <td>{{ i }}</td>
-        </tr>
-    {% endfor %}
-    </table>
-{% endif %}
-
-{% next_button %}
+    <div class="card">
+        <div class="card-body">
+            Your payoff: {{ player.payoff }}
+        </div>
+    </div>
+    {% next_button %}
 {% endblock %}
 
 
