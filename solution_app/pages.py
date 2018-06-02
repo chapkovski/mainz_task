@@ -1,7 +1,8 @@
 from otree.api import Currency as c, currency_range
 from ._builtin import Page, WaitPage
 from .models import Constants, Player
-
+import json
+import random
 
 class FirstPage(Page):
     def is_displayed(self):
@@ -95,29 +96,12 @@ class Results(Page):
 
 class Survey1(SurveyPage):
     def get_form_fields(self):
-        a = ['political_views', 'trust']
-        b = ['experimenter_demand', 'gender']
-        import random
-        rand = random.random()
-        if rand < .5:
-            random.shuffle(a)
-            return a
-        else:
-            random.shuffle(b)
-            return b
+        return json.loads(self.player.qs_order)[0]
 
 
 class Survey2(SurveyPage):
     def get_form_fields(self):
-        a = ['political_views', 'trust']
-        b = ['experimenter_demand', 'gender']
-        import random
-        if self.player.trust is None:
-            random.shuffle(a)
-            return a
-        else:
-            random.shuffle(b)
-            return b
+        return json.loads(self.player.qs_order)[1]
 
 
 page_sequence = [
@@ -125,13 +109,13 @@ page_sequence = [
     # Intro2,
     # ControlQuestions1,
     # ControlQuestions2,
-    Decision_1,
-    Belief_1,
-    WaitPage,
-    Belief_2,
-    Decision_2,
-    ResultsWaitPage,
-    Results,
-    # Survey1,
-    # Survey2
+    # Decision_1,
+    # Belief_1,
+    # WaitPage,
+    # Belief_2,
+    # Decision_2,
+    # ResultsWaitPage,
+    # Results,
+    Survey1,
+    Survey2
 ]

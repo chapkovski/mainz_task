@@ -2,6 +2,8 @@ from otree.api import (
     models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
     Currency as c, currency_range
 )
+import json
+import random
 
 author = 'Philipp Chapkovski, chapkovski@gmail.com'
 
@@ -16,8 +18,11 @@ class Constants(BaseConstants):
     num_rounds = 4
     endowment = 100
     multiplier = 2
-    returning_max = 100  #(for percentage of amount received)
+    returning_max = 100  # (for percentage of amount received)
     treatments = ['T1', 'T2']
+    qs_a = ['political_views', 'trust']
+    qs_b = ['experimenter_demand', 'gender']
+    question_sets = [qs_a, qs_b]
     decision_order = {'T1': ['sender', 'receiver'], 'T2': ['receiver', 'sender']}
     splitting_round = 3
     POLITICAL_CHOICES = [(0, 'Left'),
@@ -41,6 +46,13 @@ class Subsession(BaseSubsession):
                 g.treatment = treatment_seq[0]
             else:
                 g.treatment = treatment_seq[1]
+        if self.round_number == Constants.num_rounds:
+            for p in self.get_players():
+                qs = Constants.question_sets.copy()
+                for i in qs:
+                    random.shuffle(i)
+                random.shuffle(qs)
+                p.qs_order = json.dumps(qs)
 
 
 class Group(BaseGroup):
@@ -63,6 +75,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    qs_order = models.StringField()
     political_views = models.IntegerField(choices=Constants.POLITICAL_CHOICES,
                                           widget=widgets.RadioSelect)
     trust = models.IntegerField(choices=Constants.TRUST_CHOICES,
