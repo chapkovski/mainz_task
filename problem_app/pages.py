@@ -134,7 +134,7 @@ class Decision4(Page):
                 'belief_text': belief_text,
             }
         else:
-            receiver= self.group.get_player_by_role('B')
+            receiver= self.group.get_player_by_role('receiver')
             decision_text = 'The receiver decided to send back  {}% of what you will send to him/her'.format(
                 receiver.receiver_decision)
             belief_text = 'The receiver believes you will send him/her {}'.format(
