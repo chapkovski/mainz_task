@@ -22,7 +22,7 @@ class Intro1(FirstPage):
 
 class Intro2(FirstPage):
     ...
- 
+
 
 class ControlQuestions1(FirstPage):
     ...
@@ -70,14 +70,14 @@ class Decision_2(DecisionBelief):
 
     def vars_for_template(self):
         if self.group.treatment == 'T1':
-            decision_text = 'The trustor decided to send  {} of his endowment'.format(
+            decision_text = 'The Sender decided to send  {} of his endowment'.format(
                 self.group.sender_decision)
-            belief_text = 'The trustor believes you will send him back  {}% '.format(
+            belief_text = 'The Sender believes you will send him back  {}% '.format(
                 self.group.sender_beliefs)
         else:
-            decision_text = 'The trustee decided to send back  {}% of what you will send to him/her'.format(
+            decision_text = 'The Receiver decided to send back  {}% of what you will send to him/her'.format(
                 self.group.receiver_decision)
-            belief_text = 'The trustee believes you will send him/her {}'.format(
+            belief_text = 'The Receiver believes you will send him/her {}'.format(
                 self.group.receiver_beliefs)
         return {
             'decision_text': decision_text,
@@ -105,17 +105,17 @@ class Survey2(SurveyPage):
 
 
 page_sequence = [
-    # Intro1,
-    # Intro2,
-    # ControlQuestions1,
-    # ControlQuestions2,
-    # Decision_1,
-    # Belief_1,
-    # WaitPage,
-    # Belief_2,
-    # Decision_2,
-    # ResultsWaitPage,
-    # Results,
+    Intro1,
+    Intro2,
+    ControlQuestions1,
+    ControlQuestions2,
+    Decision_1,
+    Belief_1,
+    WaitPage,
+    Belief_2,
+    Decision_2,
+    ResultsWaitPage,
+    Results,
     Survey1,
     Survey2
 ]
