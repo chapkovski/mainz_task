@@ -88,7 +88,4 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect)
 
     def role(self):
-        if self.id_in_group == 1:
-            return 'sender'
-        else:
-            return 'receiver'
+        return {1:'sender', 2:'receiver'}[self.id_in_group]
